@@ -4,7 +4,7 @@ module.exports = (io) => {
     require('./crash')(io);
     require('./roll')(io);
     require('./blackjack')(io);
-    require('./duels')(io);
+    // require('./duels')(io);
     require('./mines')(io);
     require('./towers')(io);
     require('./unbox')(io);
