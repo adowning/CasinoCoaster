@@ -99,3 +99,39 @@ model BalanceTransaction {
   state     String
   createdAt DateTime @default(now())
 }
+
+model Box {
+  id         String      @id @default(cuid())
+  name       String?
+  slug       String?
+  amount     Float?
+  levelMin   Float?
+  items      BoxItem[]
+  categories String[]
+  type       String?
+  state      String?
+  updatedAt  DateTime    @default(now())
+  createdAt  DateTime    @default(now())
+}
+
+model BoxItem {
+  id            String      @id @default(cuid())
+  boxId         String
+  limitedItemId String
+  tickets       Int?
+  box           Box         @relation(fields: [boxId], references: [id])
+  limitedItem   LimitedItem @relation(fields: [limitedItemId], references: [id])
+}
+
+model LimitedItem {
+  id          String    @id @default(cuid())
+  assetId     String?
+  name        String?
+  image       String?
+  amount      Float?
+  amountFixed Float?
+  accepted    Boolean?
+  updatedAt   DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+  boxes       BoxItem[]
+}
