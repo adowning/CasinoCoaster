@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@prisma/client": "^6.12.0",
-    "bun-ws-router": "github:kriasoft/bun-ws-router",
-    "prisma": "^6.12.0"
-  }
-}
