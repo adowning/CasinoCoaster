@@ -70,6 +70,7 @@ model User {
   balanceTransactions  BalanceTransaction[]
   rains                Rain[]   @relation("RainParticipants")
   createdRains         Rain[]   @relation("RainCreator")
+  slotsUser            SlotsUser?
 }
 
 model Leaderboard {
