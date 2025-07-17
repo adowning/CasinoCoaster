@@ -7,4 +7,10 @@ export default (wss: WebSocketServer) => {
         leaderboardSocket(ws, wss);
         vaultSocket(ws, wss);
     });
+import { duelsRouter, initDuels } from '../duels/duels.router';
+
+export {
+    duelsRouter,
+    initDuels
+main
 };
