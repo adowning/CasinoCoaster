@@ -68,6 +68,9 @@ model User {
   referredUsers        User[]   @relation("UserReferrer")
   leaderboards         LeaderboardWinner[]
   balanceTransactions  BalanceTransaction[]
+  rains                Rain[]   @relation("RainParticipants")
+  createdRains         Rain[]   @relation("RainCreator")
+  slotsUser            SlotsUser?
 }
 
 model Leaderboard {
@@ -134,4 +137,16 @@ model LimitedItem {
   updatedAt   DateTime  @default(now())
   createdAt   DateTime  @default(now())
   boxes       BoxItem[]
+}
+
+model Rain {
+  id           String   @id @default(cuid())
+  amount       Float?
+  participants User[]   @relation("RainParticipants")
+  creatorId    String?
+  creator      User?    @relation("RainCreator", fields: [creatorId], references: [id])
+  type         String?
+  state        String?
+  updatedAt    DateTime @default(now())
+  createdAt    DateTime @default(now())
 }
