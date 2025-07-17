@@ -3,7 +3,7 @@ const express = require('express');
 const http = require('http');
 const hpp = require('hpp');
 const cors = require('cors');
-const socket = require('socket.io');
+const { WebSocketServer } = require('bun-ws-router');
 
 // Load application config
 require('dotenv').config({ path: './config/config.env' });
@@ -13,13 +13,7 @@ const app = express();
 const server = http.createServer(app);
 
 // Create socket server
-const io = socket(server, {
-    transports: ['websocket'],
-    cors: {
-        origin: process.env.SERVER_FRONTEND_URL,
-        credentials: true
-    }
-});
+const wss = new WebSocketServer();
 
 // Load database
 require('./database')();
@@ -44,11 +38,11 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
 // Mount routes
-app.use('/', require('./routes')(io));
+app.use('/', require('./routes')());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // Mount sockets
-require('./sockets')(io);
+require('./sockets')(wss);
 
 // Set app port
 const PORT = process.env.SERVER_PORT || 5000;
